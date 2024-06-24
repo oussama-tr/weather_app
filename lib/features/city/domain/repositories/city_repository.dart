@@ -7,7 +7,7 @@ import 'package:weather_app/features/city/domain/entities/city.dart';
 /// This interface defines methods to interact with city data, including
 /// fetching cities, adding, deleting and selecting a city.
 abstract class CityRepository {
-  /// Retrieves a list of cities.
+  /// Retrieves the list of cities.
   ///
   /// Returns a [Future] that completes with an [Either] containing either
   /// a [Failure] or a list of [City] instances.
