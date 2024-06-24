@@ -24,16 +24,4 @@ abstract class CityRepository {
   /// [city] is the name of city to be deleted.
   /// Returns a [Future] that completes when the operation finishes.
   Future<Either<Failure, void>> deleteCity(City city);
-
-  /// Retrieves the currently selected city, if any.
-  ///
-  /// Returns a [Future] that completes with an [Either] containing either
-  /// a [Failure] or the currently selected [City].
-  Future<Either<Failure, City?>> getSelectedCity();
-
-  /// Sets the currently selected city.
-  ///
-  /// [city] is the name of the city to be set as the currently selected city.
-  /// Returns a [Future] that completes when the operation finishes.
-  Future<Either<Failure, void>> setSelectedCity(City city);
 }

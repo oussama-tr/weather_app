@@ -48,26 +48,4 @@ class CityRepositoryImpl implements CityRepository {
       return const Left(DeleteCityFailure());
     }
   }
-
-  @override
-  Future<Either<Failure, City?>> getSelectedCity() async {
-    try {
-      final selectedCity = await localDataSource.getSelectedCity();
-      return Right(selectedCity);
-    } catch (e) {
-      // If an error occurs when retrieving the selected city, return a GetSelectedCityFailure.
-      return const Left(GetSelectedCityFailure());
-    }
-  }
-
-  @override
-  Future<Either<Failure, void>> setSelectedCity(City city) async {
-    try {
-      await localDataSource.setSelectedCity(city);
-      return const Right(null);
-    } catch (e) {
-      // If an error occurs when setting the selected city, return a SetSelectedCityFailure.
-      return const Left(SetSelectedCityFailure());
-    }
-  }
 }

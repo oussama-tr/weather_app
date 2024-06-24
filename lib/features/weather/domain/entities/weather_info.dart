@@ -51,7 +51,7 @@ class WeatherInfo extends Equatable {
   /// The sunset time in Unix timestamp.
   final int sunset;
 
-  /// The status code of the response.
+  /// The probability of rain or other forms of precipitation occurring.
   final int cod;
 
   /// Constructs a [WeatherInfo] instance with the provided weather details.
