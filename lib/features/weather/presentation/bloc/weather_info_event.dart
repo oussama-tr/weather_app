@@ -10,10 +10,10 @@ abstract class WeatherInfoEvent extends Equatable {
 }
 
 /// Event indicating a request to fetch weather information for a specific city.
-class GetWeatherInfo extends WeatherInfoEvent {
-  final String city;
+class GetCityWeatherInfo extends WeatherInfoEvent {
+  final City city;
 
-  const GetWeatherInfo({required this.city});
+  const GetCityWeatherInfo({required this.city});
 
   @override
   List<Object> get props => [city];
