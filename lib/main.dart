@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:weather_app/features/city/presentation/bloc/city_bloc.dart';
 import 'package:weather_app/features/city/presentation/bloc/city_event.dart';
-import 'package:weather_app/features/city/presentation/pages/city_page.dart';
+import 'package:weather_app/features/weather/presentation/bloc/weather_info_bloc.dart';
+import 'package:weather_app/features/weather/presentation/pages/weather_details_page.dart';
 import 'injection_container.dart' as di;
 
 void main() async {
@@ -21,9 +22,10 @@ class MyApp extends StatelessWidget {
         BlocProvider(
           create: (context) => di.sl<CityBloc>()..add(LoadCities()),
         ),
+        BlocProvider(create: (context) => di.sl<WeatherInfoBloc>())
       ],
-      child: MaterialApp(
-        home: CityPage(),
+      child: const MaterialApp(
+        home: WeatherDetailsPage(),
       ),
     );
   }

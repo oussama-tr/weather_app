@@ -14,6 +14,7 @@ import 'package:weather_app/features/weather/data/repositories/weather_info_repo
 import 'package:weather_app/features/weather/domain/repositories/weather_info_repository.dart';
 import 'package:weather_app/features/weather/domain/usecases/get_weather_info.dart';
 import 'package:weather_app/features/weather/presentation/bloc/weather_info_bloc.dart';
+import 'package:http/http.dart' as http;
 
 final sl = GetIt.instance;
 
@@ -67,4 +68,5 @@ Future<void> init() async {
   ///  External
   final sharedPreferences = await SharedPreferences.getInstance();
   sl.registerLazySingleton(() => sharedPreferences);
+  sl.registerLazySingleton(() => http.Client());
 }
