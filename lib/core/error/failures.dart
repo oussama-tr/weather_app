@@ -12,6 +12,21 @@ abstract class Failure extends Equatable {
   const Failure([List properties = const <dynamic>[]]);
 }
 
+/** General failures **/
+
+/// Represents a failure when server call fails.
+class ServerFailure extends Failure {
+  final String message = 'Server Failure';
+
+  /// Constructor for [ServerFailure].
+  const ServerFailure();
+
+  @override
+  List<Object> get props => [message];
+}
+
+/** City failures **/
+
 /// Represents a failure when fetching cities fails.
 class GetCitiesFailure extends Failure {
   final String message = 'Failed to get cities';
