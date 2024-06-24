@@ -17,13 +17,13 @@ abstract class CityRepository {
   ///
   /// [city] is the name of the city to be added.
   /// Returns a [Future] that completes when the operation finishes.
-  Future<void> addCity(City city);
+  Future<Either<Failure, void>> addCity(City city);
 
   /// Deletes a city.
   ///
   /// [city] is the name of city to be deleted.
   /// Returns a [Future] that completes when the operation finishes.
-  Future<void> deleteCity(City city);
+  Future<Either<Failure, void>> deleteCity(City city);
 
   /// Retrieves the currently selected city, if any.
   ///
@@ -35,5 +35,5 @@ abstract class CityRepository {
   ///
   /// [city] is the name of the city to be set as the currently selected city.
   /// Returns a [Future] that completes when the operation finishes.
-  Future<void> setSelectedCity(City city);
+  Future<Either<Failure, void>> setSelectedCity(City city);
 }

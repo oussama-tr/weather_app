@@ -1,5 +1,6 @@
 import 'package:dartz/dartz.dart';
 import 'package:weather_app/core/error/failures.dart';
+import 'package:weather_app/core/usecases/usecase.dart';
 import 'package:weather_app/features/city/domain/entities/city.dart';
 import 'package:weather_app/features/city/domain/repositories/city_repository.dart';
 
@@ -7,7 +8,7 @@ import 'package:weather_app/features/city/domain/repositories/city_repository.da
 ///
 /// This class encapsulates the logic for fetching the currently selected
 /// city using a [CityRepository].
-class GetSelectedCity {
+class GetSelectedCity extends UseCase<City?, NoParams> {
   /// The repository responsible for city data operations.
   final CityRepository repository;
 
@@ -18,7 +19,8 @@ class GetSelectedCity {
   ///
   /// Returns a [Future] that completes with an [Either] containing either
   /// a [Failure] or the currently selected [City].
-  Future<Either<Failure, City?>> call() {
+  @override
+  Future<Either<Failure, City?>> call(NoParams _) {
     return repository.getSelectedCity();
   }
 }

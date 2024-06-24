@@ -1,5 +1,6 @@
 import 'package:dartz/dartz.dart';
 import 'package:weather_app/core/error/failures.dart';
+import 'package:weather_app/core/usecases/usecase.dart';
 import 'package:weather_app/features/city/domain/entities/city.dart';
 import 'package:weather_app/features/city/domain/repositories/city_repository.dart';
 
@@ -7,7 +8,7 @@ import 'package:weather_app/features/city/domain/repositories/city_repository.da
 ///
 /// This class encapsulates the logic for fetching a list of cities using
 /// a [CityRepository].
-class GetCities {
+class GetCities extends UseCase<List<City>, NoParams> {
   /// The repository responsible for city data operations.
   final CityRepository repository;
 
@@ -18,7 +19,8 @@ class GetCities {
   ///
   /// Returns a [Future] that completes with an [Either] containing either
   /// a [Failure] or a list of [City] instances.
-  Future<Either<Failure, List<City>>> call() {
+  @override
+  Future<Either<Failure, List<City>>> call(NoParams _) {
     return repository.getCities();
   }
 }

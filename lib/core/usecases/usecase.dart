@@ -15,3 +15,9 @@ abstract class UseCase<Type, Params> {
   /// a [Failure] or the expected result of type [Type].
   Future<Either<Failure, Type>> call(Params params);
 }
+
+/// Represents an empty parameters class used for use cases that do not require
+///  any specific parameters.
+/// Typically used when defining a use case that performs an operation without
+///  needing an external input.
+class NoParams {}
