@@ -69,7 +69,8 @@ class CityLocalDataSourceImpl implements CityLocalDataSource {
     final cities = await getCities();
     final normalizedCityName = city.name.toLowerCase();
 
-    if (!cities.any((c) => c.name.toLowerCase() == normalizedCityName)) {
+    if (!cities.any((c) => c.name.toLowerCase() == normalizedCityName) &&
+        city.name.isNotEmpty) {
       cities.add(CityModel(name: normalizedCityName));
       await _saveCities(cities);
     }
