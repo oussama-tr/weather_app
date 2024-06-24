@@ -2,6 +2,7 @@ import 'package:dartz/dartz.dart';
 import 'package:equatable/equatable.dart';
 import 'package:weather_app/core/error/failures.dart';
 import 'package:weather_app/core/usecases/usecase.dart';
+import 'package:weather_app/features/city/domain/entities/city.dart';
 import 'package:weather_app/features/weather/domain/entities/weather_info.dart';
 import 'package:weather_app/features/weather/domain/repositories/weather_info_repository.dart';
 
@@ -22,14 +23,14 @@ class GetWeatherInfo implements UseCase<WeatherInfo, Params> {
   /// a [Failure] or a [WeatherInfo] instance.
   @override
   Future<Either<Failure, WeatherInfo>> call(Params params) async {
-    return await repository.getWeatherInfo(params.cityName);
+    return await repository.getWeatherInfo(params.city);
   }
 }
 
 class Params extends Equatable {
-  final String cityName;
-  const Params({required this.cityName});
+  final City city;
+  const Params({required this.city});
 
   @override
-  List<Object?> get props => [cityName];
+  List<Object?> get props => [city];
 }
