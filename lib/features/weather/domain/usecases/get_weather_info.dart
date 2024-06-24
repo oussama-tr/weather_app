@@ -10,7 +10,7 @@ import 'package:weather_app/features/weather/domain/repositories/weather_info_re
 ///
 /// This class encapsulates the logic for fetching weather information using
 /// [WeatherInfoRepository].
-class GetWeatherInfo implements UseCase<WeatherInfo, Params> {
+class GetWeatherInfo implements UseCase<WeatherInfo, GetWeatherInfoParams> {
   /// The repository responsible for weather information data operations.
   final WeatherInfoRepository repository;
 
@@ -22,14 +22,14 @@ class GetWeatherInfo implements UseCase<WeatherInfo, Params> {
   /// Returns a [Future] that completes with an [Either] containing either
   /// a [Failure] or a [WeatherInfo] instance.
   @override
-  Future<Either<Failure, WeatherInfo>> call(Params params) async {
+  Future<Either<Failure, WeatherInfo>> call(GetWeatherInfoParams params) async {
     return await repository.getWeatherInfo(params.city);
   }
 }
 
-class Params extends Equatable {
+class GetWeatherInfoParams extends Equatable {
   final City city;
-  const Params({required this.city});
+  const GetWeatherInfoParams({required this.city});
 
   @override
   List<Object?> get props => [city];
