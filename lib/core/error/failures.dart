@@ -25,6 +25,16 @@ class ServerFailure extends Failure {
   List<Object> get props => [message];
 }
 
+/// Represents a failure when retrieving cached data.
+class CacheFailure extends Failure {
+  final String message = 'Unable to get cached data';
+
+  /// Constructor for [ServerFailure].
+  const CacheFailure();
+  @override
+  List<Object> get props => [message];
+}
+
 /** City failures **/
 
 /// Represents a failure when fetching cities fails.

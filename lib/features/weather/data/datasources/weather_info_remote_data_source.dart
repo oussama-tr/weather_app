@@ -39,7 +39,7 @@ class WeatherInfoRemoteDataSourceImpl implements WeatherInfoRemoteDataSource {
       headers: {'Content-Type': 'application/json'},
     );
 
-    if (response.statusCode == HttpStatus.accepted) {
+    if (response.statusCode == HttpStatus.ok) {
       return Future.value(
         WeatherInfoModel.fromJson(
           json.decode(response.body) as Map<String, dynamic>,

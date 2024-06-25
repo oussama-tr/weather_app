@@ -11,7 +11,7 @@ abstract class WeatherInfoLocalDataSource {
   /// Retrieves the cached [WeatherInfoModel] for the specified [cityName].
   ///
   /// Throws a [CacheException] if no cached data is present for the city.
-  Future<WeatherInfoModel> getLastWeatherInfo(String cityName);
+  Future<WeatherInfoModel> getCachedWeatherInfo(String cityName);
 
   /// Caches the [weatherInfoToCache] for the specified [cityName]
   Future<void> cacheWeatherInfo(
@@ -31,7 +31,7 @@ class WeatherInfoLocalDataSourceImpl implements WeatherInfoLocalDataSource {
   WeatherInfoLocalDataSourceImpl({required this.sharedPreferences});
 
   @override
-  Future<WeatherInfoModel> getLastWeatherInfo(String cityName) {
+  Future<WeatherInfoModel> getCachedWeatherInfo(String cityName) {
     final jsonString = sharedPreferences.getString(_getCacheKey(cityName));
 
     if (jsonString != null) {
