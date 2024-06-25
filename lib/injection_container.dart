@@ -3,11 +3,11 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:weather_app/features/city/data/datasources/city_local_data_source.dart';
 import 'package:weather_app/features/city/data/repositories/city_repository_impl.dart';
 import 'package:weather_app/features/city/domain/repositories/city_repository.dart';
+import 'package:weather_app/features/city/domain/repositories/location_manager.dart';
+import 'package:weather_app/features/city/data/repositories/location_provider.dart';
 import 'package:weather_app/features/city/domain/usecases/add_city.dart';
 import 'package:weather_app/features/city/domain/usecases/delete_city.dart';
 import 'package:weather_app/features/city/domain/usecases/get_cities.dart';
-import 'package:weather_app/features/city/domain/usecases/get_selected_city.dart';
-import 'package:weather_app/features/city/domain/usecases/set_selected_city.dart';
 import 'package:weather_app/features/city/presentation/bloc/city_bloc.dart';
 import 'package:weather_app/features/weather/data/datasources/weather_info_remote_datasource.dart';
 import 'package:weather_app/features/weather/data/repositories/weather_info_repository_impl.dart';
@@ -25,16 +25,12 @@ Future<void> init() async {
         getCities: sl(),
         addCity: sl(),
         deleteCity: sl(),
-        getSelectedCity: sl(),
-        setSelectedCity: sl(),
       ));
 
   // Use cases
   sl.registerLazySingleton(() => GetCities(sl()));
   sl.registerLazySingleton(() => AddCity(sl()));
   sl.registerLazySingleton(() => DeleteCity(sl()));
-  sl.registerLazySingleton(() => GetSelectedCity(sl()));
-  sl.registerLazySingleton(() => SetSelectedCity(sl()));
 
   // Data sources
   sl.registerLazySingleton<CityLocalDataSource>(
@@ -43,7 +39,10 @@ Future<void> init() async {
 
   // Repository
   sl.registerLazySingleton<CityRepository>(
-    () => CityRepositoryImpl(localDataSource: sl()),
+    () => CityRepositoryImpl(
+      localDataSource: sl(),
+      locationManager: sl(),
+    ),
   );
 
   /** Features - Weather **/
@@ -65,8 +64,13 @@ Future<void> init() async {
     () => WeatherInfoRemoteDataSourceImpl(client: sl()),
   );
 
-  ///  External
+  /** External **/
   final sharedPreferences = await SharedPreferences.getInstance();
   sl.registerLazySingleton(() => sharedPreferences);
   sl.registerLazySingleton(() => http.Client());
+
+  /** Internal **/
+  final locationProvider = LocationProvider();
+  final locationManager = LocationManager(locationProvider);
+  sl.registerLazySingleton(() => locationManager);
 }
