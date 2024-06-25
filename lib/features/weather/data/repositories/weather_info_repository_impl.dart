@@ -1,6 +1,6 @@
 import 'package:weather_app/core/error/exceptions.dart';
 import 'package:weather_app/features/city/domain/entities/city.dart';
-import 'package:weather_app/features/weather/data/datasources/weather_info_remote_datasource.dart';
+import 'package:weather_app/features/weather/data/datasources/weather_info_remote_data_source.dart';
 import 'package:weather_app/features/weather/domain/entities/weather_info.dart';
 import 'package:weather_app/core/error/failures.dart';
 import 'package:dartz/dartz.dart';

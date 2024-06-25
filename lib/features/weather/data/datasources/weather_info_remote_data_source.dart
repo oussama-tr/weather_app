@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:io';
 import 'package:http/http.dart' as http;
 import 'package:weather_app/core/constants/urls.dart';
 import 'package:weather_app/core/error/exceptions.dart';
@@ -31,12 +32,6 @@ class WeatherInfoRemoteDataSourceImpl implements WeatherInfoRemoteDataSource {
   /// [client] is an instance of [http.Client] used to perform HTTP requests.
   WeatherInfoRemoteDataSourceImpl({required this.client});
 
-  /// Calls the OpenWeather API to retrieve weather information for a city.
-  ///
-  /// [city] is the city for which weather information is requested.
-  /// Returns a [Future] that completes with a [WeatherInfoModel] containing
-  /// the weather data. Throws a [ServerException] if the API call results in
-  /// an error.
   @override
   Future<WeatherInfoModel> getWeatherInfo(City city) async {
     final response = await client.get(
@@ -44,12 +39,15 @@ class WeatherInfoRemoteDataSourceImpl implements WeatherInfoRemoteDataSource {
       headers: {'Content-Type': 'application/json'},
     );
 
-    if (response.statusCode == 200) {
+    if (response.statusCode == HttpStatus.accepted) {
       return Future.value(
         WeatherInfoModel.fromJson(
           json.decode(response.body) as Map<String, dynamic>,
         ),
       );
+    }
+    if (response.statusCode == HttpStatus.notFound) {
+      throw ServerException('City not found');
     } else {
       throw ServerException('Server Error');
     }
