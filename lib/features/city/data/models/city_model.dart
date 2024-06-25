@@ -27,10 +27,12 @@ class CityModel extends City {
     };
   }
 
-  /// Creates a list of [CityModel] instances from a list of JSON objects.
+  /// Creates a list of [CityModel] instances from a list of JSON-encoded strings.
   ///
-  /// The [jsonList] parameter is a list of objects containing city data.
-  /// Returns a list of [CityModel] instances.
+  /// The [jsonList] parameter is a list of strings where each string represents
+  /// JSON-encoded city data.
+  ///
+  /// Returns a list of [CityModel] instances parsed from the JSON strings.
   static List<CityModel> fromJsonList(List<String> jsonList) {
     return jsonList
         .map((jsonString) =>
@@ -38,10 +40,12 @@ class CityModel extends City {
         .toList();
   }
 
-  /// Converts a list of [CityModel] instances to a list of JSON strings.
+  /// Converts a list of [CityModel] instances into a list of JSON-encoded strings.
   ///
-  /// The [cityList] parameter is a list of [CityModel] instances.
-  /// Returns a list of strings containing city data.
+  /// Converts each [CityModel] in [cityList] into a JSON-encoded string using
+  /// its [toJson] method.
+  ///
+  /// Returns a list of strings where each string represents JSON-encoded city data.
   static List<String> toJsonList(List<CityModel> cityList) {
     return cityList.map((city) => jsonEncode(city.toJson())).toList();
   }

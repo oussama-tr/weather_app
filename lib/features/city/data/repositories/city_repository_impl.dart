@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:dartz/dartz.dart';
 import 'package:weather_app/core/error/failures.dart';
 import 'package:weather_app/features/city/data/datasources/city_local_data_source.dart';
@@ -52,7 +50,6 @@ class CityRepositoryImpl implements CityRepository {
         },
       );
     } catch (e) {
-      inspect(e);
       // If an error occurs during cities retrieval, return a GetCitiesFailure.
       return const Left(GetCitiesFailure());
     }
