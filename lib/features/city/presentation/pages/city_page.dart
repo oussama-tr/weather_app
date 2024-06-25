@@ -68,13 +68,16 @@ class CityPage extends StatelessWidget {
             },
             child: ListTile(
               title: Text(city.name),
-              trailing: IconButton(
-                icon: const Icon(Icons.delete),
-                onPressed: () {
-                  BlocProvider.of<CityBloc>(context).add(
-                    DeleteCityEvent(city),
-                  );
-                },
+              trailing: Visibility(
+                visible: !city.isCurrentCity,
+                child: IconButton(
+                  icon: const Icon(Icons.delete),
+                  onPressed: () {
+                    BlocProvider.of<CityBloc>(context).add(
+                      DeleteCityEvent(city),
+                    );
+                  },
+                ),
               ),
             ),
           );
