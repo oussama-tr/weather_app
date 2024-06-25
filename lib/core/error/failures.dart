@@ -82,3 +82,14 @@ class LocationPermissionDeniedFailure extends Failure {
   @override
   List<Object> get props => [message];
 }
+
+/// Represents a failure when getting location.
+class GetLocationFailure extends Failure {
+  final String message = 'Failed to get current location';
+
+  /// Constructor for [GetLocationFailure].
+  const GetLocationFailure();
+
+  @override
+  List<Object> get props => [message];
+}
