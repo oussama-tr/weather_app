@@ -60,23 +60,24 @@ class DeleteCityFailure extends Failure {
   List<Object> get props => [message];
 }
 
-/// Represents a failure when fetching the current city fails.
-class GetSelectedCityFailure extends Failure {
-  final String message = 'Failed to get current city';
+/// Represents a failure when getting location while location services are off.
+class LocationServicesDisabledFailure extends Failure {
+  final String message = 'Location services are disabled';
 
-  /// Constructor for [GetSelectedCityFailure].
-  const GetSelectedCityFailure();
+  /// Constructor for [LocationServicesDisabledFailure].
+  const LocationServicesDisabledFailure();
 
   @override
   List<Object> get props => [message];
 }
 
-/// Represents a failure when setting the current city fails.
-class SetSelectedCityFailure extends Failure {
-  final String message = 'Failed to set current city';
+/// Represents a failure when getting location while location permission
+/// is denied.
+class LocationPermissionDeniedFailure extends Failure {
+  final String message = 'Location permission is denied';
 
-  /// Constructor for [SetSelectedCityFailure].
-  const SetSelectedCityFailure();
+  /// Constructor for [LocationPermissionDeniedFailure].
+  const LocationPermissionDeniedFailure();
 
   @override
   List<Object> get props => [message];
