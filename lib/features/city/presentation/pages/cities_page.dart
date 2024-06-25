@@ -1,18 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:weather_app/core/constants/app_routes.dart';
 import 'package:weather_app/features/city/domain/entities/city.dart';
 import 'package:weather_app/features/city/presentation/bloc/city_bloc.dart';
 import 'package:weather_app/features/city/presentation/bloc/city_event.dart';
 import 'package:weather_app/features/city/presentation/bloc/city_state.dart';
 
-class CityPage extends StatelessWidget {
-  const CityPage({super.key});
+class CitiesPage extends StatelessWidget {
+  const CitiesPage({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('City Management dummy screen'),
+        title: const Text('Cities list dummy screen'),
       ),
       body: BlocBuilder<CityBloc, CityState>(
         builder: (context, state) {
@@ -37,9 +38,11 @@ class CityPage extends StatelessWidget {
           children: [
             _buildCitiesList(state.cities),
             const SizedBox(height: 20),
-            _buildSelectedCityDisplay(state.selectedCity),
-            const SizedBox(height: 20),
-            _buildAddCitySection(context),
+            ElevatedButton(
+              onPressed: () =>
+                  Navigator.of(context).pushNamed(AppRoutes.addCity),
+              child: const Text('Add City'),
+            ),
           ],
         ),
       );
@@ -65,6 +68,8 @@ class CityPage extends StatelessWidget {
               BlocProvider.of<CityBloc>(context).add(
                 SelectCityEvent(city),
               );
+
+              Navigator.of(context).pushNamed(AppRoutes.weatherDetails);
             },
             child: ListTile(
               title: Text(city.name),
@@ -83,38 +88,6 @@ class CityPage extends StatelessWidget {
           );
         },
       ),
-    );
-  }
-
-  Widget _buildSelectedCityDisplay(City? selectedCity) {
-    return selectedCity != null
-        ? Text('Selected City: ${selectedCity.name}')
-        : const Text('No city selected');
-  }
-
-  Widget _buildAddCitySection(BuildContext context) {
-    final TextEditingController cityController = TextEditingController();
-
-    return Column(
-      children: [
-        TextField(
-          controller: cityController,
-          decoration: const InputDecoration(hintText: 'City name'),
-        ),
-        const SizedBox(height: 20),
-        ElevatedButton(
-          onPressed: () {
-            BlocProvider.of<CityBloc>(context).add(
-              AddCityEvent(
-                City(
-                  name: cityController.text,
-                ),
-              ),
-            );
-          },
-          child: const Text('Add City'),
-        ),
-      ],
     );
   }
 }

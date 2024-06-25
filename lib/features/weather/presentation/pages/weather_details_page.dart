@@ -12,42 +12,44 @@ class WeatherDetailsPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Weather details dummy screen'),
+        title: const Text('Weather Details'),
       ),
       body: SafeArea(
-        child: BlocListener<CityBloc, CityState>(
-          listener: (context, state) {
-            if (state is CitiesLoaded && state.selectedCity != null) {
+        child: BlocBuilder<CityBloc, CityState>(
+          builder: (context, cityState) {
+            if (cityState is CitiesLoaded && cityState.selectedCity != null) {
+              // Dispatch an event to WeatherInfoBloc to fetch weather info
               context.read<WeatherInfoBloc>().add(
                     GetCityWeatherInfo(
-                      city: City(name: state.selectedCity!.name),
+                      city: City(name: cityState.selectedCity!.name),
                     ),
                   );
             }
+
+            return BlocBuilder<WeatherInfoBloc, WeatherInfoState>(
+              builder: (context, weatherState) {
+                if (weatherState is WeatherInfoLoading) {
+                  return const Center(
+                    child: CircularProgressIndicator(),
+                  );
+                } else if (weatherState is WeatherInfoLoaded) {
+                  return Center(
+                    child: Text(
+                      weatherState.weatherInfo.toString(),
+                    ),
+                  );
+                } else if (weatherState is WeatherInfoError) {
+                  return Center(
+                    child: Text('Error: ${weatherState.message}'),
+                  );
+                } else {
+                  return const Center(
+                    child: Text('No weather information available.'),
+                  );
+                }
+              },
+            );
           },
-          child: BlocBuilder<WeatherInfoBloc, WeatherInfoState>(
-            builder: (context, state) {
-              if (state is WeatherInfoLoading) {
-                return const Center(
-                  child: CircularProgressIndicator(),
-                );
-              } else if (state is WeatherInfoLoaded) {
-                return Center(
-                  child: Text(
-                    state.weatherInfo.toString(),
-                  ),
-                );
-              } else if (state is WeatherInfoError) {
-                return Center(
-                  child: Text('Error: ${state.message}'),
-                );
-              } else {
-                return const Center(
-                  child: Text('No weather information available.'),
-                );
-              }
-            },
-          ),
         ),
       ),
     );
