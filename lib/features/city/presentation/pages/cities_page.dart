@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:weather_app/core/constants/app_routes.dart';
+import 'package:weather_app/core/layout/weather_app_layout.dart';
 import 'package:weather_app/features/city/domain/entities/city.dart';
 import 'package:weather_app/features/city/presentation/bloc/city_bloc.dart';
 import 'package:weather_app/features/city/presentation/bloc/city_event.dart';
@@ -11,11 +12,9 @@ class CitiesPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Cities list dummy screen'),
-      ),
-      body: BlocBuilder<CityBloc, CityState>(
+    return WeatherAppLayout(
+      appBarTitle: "Cities",
+      child: BlocBuilder<CityBloc, CityState>(
         builder: (context, state) {
           return SafeArea(
             child: _buildBody(context, state),
@@ -41,7 +40,10 @@ class CitiesPage extends StatelessWidget {
             ElevatedButton(
               onPressed: () =>
                   Navigator.of(context).pushNamed(AppRoutes.addCity),
-              child: const Text('Add City'),
+              child: Text(
+                'Add City',
+                style: Theme.of(context).textTheme.labelMedium,
+              ),
             ),
           ],
         ),
@@ -60,6 +62,7 @@ class CitiesPage extends StatelessWidget {
   Widget _buildCitiesList(List<City> cities) {
     return Expanded(
       child: ListView.builder(
+        physics: const ClampingScrollPhysics(),
         itemCount: cities.length,
         itemBuilder: (context, index) {
           final city = cities[index];
@@ -72,11 +75,15 @@ class CitiesPage extends StatelessWidget {
               Navigator.of(context).pushNamed(AppRoutes.weatherDetails);
             },
             child: ListTile(
-              title: Text(city.name),
+              title: Text(
+                city.name,
+                style: Theme.of(context).textTheme.headlineMedium,
+              ),
               trailing: Visibility(
                 visible: !city.isCurrentCity,
                 child: IconButton(
-                  icon: const Icon(Icons.delete),
+                  icon: const Icon(Icons.delete_sharp),
+                  color: Colors.white,
                   onPressed: () {
                     BlocProvider.of<CityBloc>(context).add(
                       DeleteCityEvent(city),

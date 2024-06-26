@@ -14,15 +14,18 @@ class AppBarWidget extends StatelessWidget implements PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).textTheme;
+    final canPop = ModalRoute.of(context)?.canPop ?? false;
 
     return AppBar(
-      leading: IconButton(
-        icon: const Icon(
-          Icons.arrow_back_ios,
-          color: Colors.white,
-        ),
-        onPressed: () => Navigator.of(context).pop(),
-      ),
+      leading: canPop
+          ? IconButton(
+              icon: const Icon(
+                Icons.arrow_back_ios,
+                color: Colors.white,
+              ),
+              onPressed: () => Navigator.of(context).pop(),
+            )
+          : null,
       title: Text(
         appBarTitle,
         style: textTheme.headlineMedium,
