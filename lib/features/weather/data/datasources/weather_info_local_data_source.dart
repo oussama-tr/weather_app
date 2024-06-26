@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:flutter/foundation.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:weather_app/core/error/exceptions.dart';
 import 'package:weather_app/features/weather/data/models/weather_info_model.dart';
@@ -32,7 +33,7 @@ class WeatherInfoLocalDataSourceImpl implements WeatherInfoLocalDataSource {
 
   @override
   Future<WeatherInfoModel> getCachedWeatherInfo(String cityName) {
-    final jsonString = sharedPreferences.getString(_getCacheKey(cityName));
+    final jsonString = sharedPreferences.getString(getCacheKey(cityName));
 
     if (jsonString != null) {
       return Future.value(WeatherInfoModel.fromJson(json.decode(jsonString)));
@@ -46,7 +47,7 @@ class WeatherInfoLocalDataSourceImpl implements WeatherInfoLocalDataSource {
       String cityName, WeatherInfoModel weatherInfoToCache) async {
     try {
       await sharedPreferences.setString(
-        _getCacheKey(cityName),
+        getCacheKey(cityName),
         json.encode(weatherInfoToCache.toJson()),
       );
     } catch (e) {
@@ -54,7 +55,9 @@ class WeatherInfoLocalDataSourceImpl implements WeatherInfoLocalDataSource {
     }
   }
 
+  @visibleForTesting
+
   /// Helper method to generate cache key for each city
-  String _getCacheKey(String cityName) =>
+  String getCacheKey(String cityName) =>
       '${cityName.toUpperCase()}_CACHED_WEATHER_INFO';
 }
