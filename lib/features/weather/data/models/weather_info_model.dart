@@ -9,6 +9,7 @@ class WeatherInfoModel extends WeatherInfo {
   const WeatherInfoModel({
     required super.main,
     required super.description,
+    required super.iconCode,
     required super.temp,
     required super.feelsLike,
     required super.tempMin,
@@ -22,7 +23,6 @@ class WeatherInfoModel extends WeatherInfo {
     required super.cityName,
     required super.sunrise,
     required super.sunset,
-    required super.cod,
   });
 
   /// Creates a [WeatherInfoModel] instance from a JSON object.
@@ -32,6 +32,7 @@ class WeatherInfoModel extends WeatherInfo {
     return WeatherInfoModel(
       main: json['weather'][0]['main'],
       description: json['weather'][0]['description'],
+      iconCode: json['weather'][0]['icon'],
       temp: json['main']['temp'],
       feelsLike: json['main']['feels_like'],
       tempMin: json['main']['temp_min'],
@@ -45,7 +46,6 @@ class WeatherInfoModel extends WeatherInfo {
       cityName: json['name'],
       sunrise: json['sys']['sunrise'],
       sunset: json['sys']['sunset'],
-      cod: json['cod'],
     );
   }
 
@@ -58,6 +58,7 @@ class WeatherInfoModel extends WeatherInfo {
         {
           'main': main,
           'description': description,
+          'iconCode': iconCode,
         }
       ],
       'main': {
@@ -81,7 +82,6 @@ class WeatherInfoModel extends WeatherInfo {
         'sunset': sunset,
       },
       'name': cityName,
-      'cod': cod,
     };
   }
 }

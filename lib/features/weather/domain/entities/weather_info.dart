@@ -12,6 +12,9 @@ class WeatherInfo extends Equatable {
   /// A more detailed description of the weather condition.
   final String description;
 
+  /// The current weather icon.
+  final String iconCode;
+
   /// The current temperature in degrees Celsius.
   final double temp;
 
@@ -51,15 +54,13 @@ class WeatherInfo extends Equatable {
   /// The sunset time in Unix timestamp.
   final int sunset;
 
-  /// The probability of rain or other forms of precipitation occurring.
-  final int cod;
-
   /// Constructs a [WeatherInfo] instance with the provided weather details.
   ///
   /// All parameters are required.
   const WeatherInfo({
     required this.main,
     required this.description,
+    required this.iconCode,
     required this.temp,
     required this.feelsLike,
     required this.tempMin,
@@ -73,7 +74,6 @@ class WeatherInfo extends Equatable {
     required this.cityName,
     required this.sunrise,
     required this.sunset,
-    required this.cod,
   });
 
   @override
@@ -93,6 +93,5 @@ class WeatherInfo extends Equatable {
         cityName,
         sunrise,
         sunset,
-        cod,
       ];
 }
