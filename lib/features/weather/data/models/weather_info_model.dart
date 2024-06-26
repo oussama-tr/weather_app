@@ -30,22 +30,28 @@ class WeatherInfoModel extends WeatherInfo {
   /// The [json] parameter is a map containing the weather data in JSON format.
   factory WeatherInfoModel.fromJson(Map<String, dynamic> json) {
     return WeatherInfoModel(
-      main: json['weather'][0]['main'],
-      description: json['weather'][0]['description'],
-      iconCode: json['weather'][0]['icon'],
-      temp: json['main']['temp'],
-      feelsLike: json['main']['feels_like'],
-      tempMin: json['main']['temp_min'],
-      tempMax: json['main']['temp_max'],
-      pressure: json['main']['pressure'],
-      humidity: json['main']['humidity'],
-      windSpeed: json['wind']['speed'],
-      windDeg: json['wind']['deg'],
-      cloudsAll: json['clouds']['all'],
-      country: json['sys']['country'],
-      cityName: json['name'],
-      sunrise: json['sys']['sunrise'],
-      sunset: json['sys']['sunset'],
+      main: json['weather'] != null && json['weather'].isNotEmpty
+          ? json['weather'][0]['main'] ?? ''
+          : '',
+      description: json['weather'] != null && json['weather'].isNotEmpty
+          ? json['weather'][0]['description'] ?? ''
+          : '',
+      iconCode: json['weather'] != null && json['weather'].isNotEmpty
+          ? json['weather'][0]['icon'] ?? ''
+          : '',
+      temp: json['main'] != null ? json['main']['temp'] ?? 0.0 : 0.0,
+      feelsLike: json['main'] != null ? json['main']['feels_like'] ?? 0.0 : 0.0,
+      tempMin: json['main'] != null ? json['main']['temp_min'] ?? 0.0 : 0.0,
+      tempMax: json['main'] != null ? json['main']['temp_max'] ?? 0.0 : 0.0,
+      pressure: json['main'] != null ? json['main']['pressure'] ?? 0 : 0,
+      humidity: json['main'] != null ? json['main']['humidity'] ?? 0 : 0,
+      windSpeed: json['wind'] != null ? json['wind']['speed'] ?? 0.0 : 0.0,
+      windDeg: json['wind'] != null ? json['wind']['deg'] ?? 0 : 0,
+      cloudsAll: json['clouds'] != null ? json['clouds']['all'] ?? 0 : 0,
+      country: json['sys'] != null ? json['sys']['country'] ?? '' : '',
+      cityName: json['name'] ?? '',
+      sunrise: json['sys'] != null ? json['sys']['sunrise'] ?? 0 : 0,
+      sunset: json['sys'] != null ? json['sys']['sunset'] ?? 0 : 0,
     );
   }
 

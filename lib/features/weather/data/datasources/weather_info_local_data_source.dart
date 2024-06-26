@@ -55,9 +55,8 @@ class WeatherInfoLocalDataSourceImpl implements WeatherInfoLocalDataSource {
     }
   }
 
-  @visibleForTesting
-
   /// Helper method to generate cache key for each city
+  @visibleForTesting
   String getCacheKey(String cityName) =>
       '${cityName.toUpperCase()}_CACHED_WEATHER_INFO';
 }
