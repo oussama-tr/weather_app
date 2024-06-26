@@ -1,5 +1,7 @@
 # Weather App
 
+<img width="250px" src="https://github.com/oussama-tr/weather_app/assets/69165378/fc25ebc7-7c54-4ae0-a8d9-d5a81e3e36bb">
+
 ## Getting started
 
 ### Install project dependencies
