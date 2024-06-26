@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:weather_app/core/constants/app_routes.dart';
+import 'package:weather_app/core/theme/weather_app_theme.dart';
 import 'package:weather_app/features/city/presentation/bloc/city_bloc.dart';
 import 'package:weather_app/features/city/presentation/bloc/city_event.dart';
 import 'package:weather_app/features/city/presentation/pages/add_city_page.dart';
@@ -30,6 +31,7 @@ class MyApp extends StatelessWidget {
         BlocProvider(create: (context) => di.sl<WeatherInfoBloc>())
       ],
       child: MaterialApp(
+        theme: AppTheme.theme,
         initialRoute: AppRoutes.cities,
         onGenerateRoute: (settings) {
           switch (settings.name) {
