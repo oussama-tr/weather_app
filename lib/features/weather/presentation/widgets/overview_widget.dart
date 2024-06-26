@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:weather_app/core/constants/urls.dart';
+import 'package:weather_app/core/extensions/string_extensions.dart';
 import 'package:weather_app/core/theme/weather_app_palette.dart';
 
 class OverviewWidget extends StatelessWidget {
@@ -55,7 +56,7 @@ class OverviewWidget extends StatelessWidget {
                     ),
                     const SizedBox(height: 20),
                     Text(
-                      weatherDescription,
+                      weatherDescription.capitalize(),
                       style: textTheme.bodyMedium,
                     ),
                   ],
