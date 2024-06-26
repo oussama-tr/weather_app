@@ -5,7 +5,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:weather_app/features/weather/domain/repositories/weather_info_repository.dart';
 import 'package:weather_app/features/weather/domain/usecases/get_weather_info.dart';
 
-import '../../../constants.dart';
+import '../../../../constants.dart';
 import 'get_weather_info_test.mocks.dart';
 
 @GenerateMocks([WeatherInfoRepository])
