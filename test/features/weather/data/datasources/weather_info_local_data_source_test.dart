@@ -18,7 +18,7 @@ void main() {
 
   final tCity = City(name: 'Zocca', long: -1, lat: -1);
 
-  group('getLastWeatherInfo', () {
+  group('getCachedWeatherInfo', () {
     final tWeatherInfoModel = WeatherInfoModel.fromJson(
         json.decode(fixture('cached_weather_info.json')));
     test(
@@ -50,7 +50,7 @@ void main() {
     });
   });
 
-  group('cacheNumberTrivia', () {
+  group('setCachedWeatherInfo', () {
     final tWeatherInfoModel = WeatherInfoModel(
       main: 'Rain',
       description: 'moderate rain',
