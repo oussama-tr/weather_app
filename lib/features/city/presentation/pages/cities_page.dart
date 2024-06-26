@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:weather_app/core/constants/app_routes.dart';
+import 'package:weather_app/core/extensions/string_extensions.dart';
 import 'package:weather_app/core/layout/weather_app_layout.dart';
 import 'package:weather_app/features/city/domain/entities/city.dart';
 import 'package:weather_app/features/city/presentation/bloc/city_bloc.dart';
@@ -76,7 +77,7 @@ class CitiesPage extends StatelessWidget {
             },
             child: ListTile(
               title: Text(
-                city.name,
+                city.name.capitalize(),
                 style: Theme.of(context).textTheme.headlineMedium,
               ),
               trailing: Visibility(
