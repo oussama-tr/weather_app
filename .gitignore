@@ -46,3 +46,7 @@ app.*.map.json
 .env*
 !.env.example
 env.g.dart
+
+# Generated files
+*.g.dart
+*.mocks.dart
