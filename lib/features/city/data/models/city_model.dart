@@ -61,4 +61,23 @@ class CityModel extends City {
   static List<String> toJsonList(List<CityModel> cityList) {
     return cityList.map((city) => jsonEncode(city.toJson())).toList();
   }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) return true;
+
+    return other is CityModel &&
+        other.name == name &&
+        other.long == long &&
+        other.lat == lat &&
+        other.isCurrentCity == isCurrentCity;
+  }
+
+  @override
+  int get hashCode {
+    return name.hashCode ^
+        long.hashCode ^
+        lat.hashCode ^
+        isCurrentCity.hashCode;
+  }
 }
