@@ -1,7 +1,6 @@
 import 'package:dartz/dartz.dart';
 import 'package:weather_app/core/error/failures.dart';
 import 'package:weather_app/features/city/data/datasources/city_local_data_source.dart';
-import 'package:weather_app/features/city/data/models/city_model.dart';
 import 'package:weather_app/features/city/domain/entities/city.dart';
 import 'package:weather_app/features/city/domain/repositories/city_repository.dart';
 import 'package:weather_app/features/city/domain/repositories/location_manager.dart';
@@ -27,7 +26,7 @@ class CityRepositoryImpl implements CityRepository {
   Future<Either<Failure, List<City>>> getCities() async {
     try {
       // Retrieve the current city from the location manager.
-      final currentCityEither = await locationManager.getCurrentCityName();
+      final currentCityEither = await locationManager.getCurrentCity();
 
       return await currentCityEither.fold(
         // If getting the current city fails, return the cities from the local
@@ -39,9 +38,7 @@ class CityRepositoryImpl implements CityRepository {
         (currentCity) async {
           if (currentCity != null) {
             // Add the current city to the local data source.
-            await localDataSource.addCity(
-              CityModel(name: currentCity, isCurrentCity: true),
-            );
+            await localDataSource.addCity(currentCity);
           }
           // Retrieve the updated list of cities from the local data source.
           final cities = await localDataSource.getCities();

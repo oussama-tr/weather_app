@@ -2,6 +2,7 @@ import 'package:geolocator/geolocator.dart';
 import 'package:weather_app/features/city/data/repositories/location_provider.dart';
 import 'package:dartz/dartz.dart';
 import 'package:weather_app/core/error/failures.dart';
+import 'package:weather_app/features/city/domain/entities/city.dart';
 
 /// A manager class responsible for handling location-related operations.
 ///
@@ -9,7 +10,7 @@ import 'package:weather_app/core/error/failures.dart';
 /// location and manage location permissions.
 class LocationManager {
   final LocationProvider _locationProvider;
-  String? _lastCity;
+  City? _lastCity;
 
   /// Constructs a [LocationManager] instance with the provided [locationProvider].
   LocationManager(this._locationProvider);
@@ -21,8 +22,8 @@ class LocationManager {
   /// Then fetches placemarks from the current position and returns the locality
   /// as the current city name.
   ///
-  /// Returns a [Future] that completes with [Either<Failure, String?>].
-  Future<Either<Failure, String?>> getCurrentCityName() async {
+  /// Returns a [Future] that completes with [Either<Failure, City?>].
+  Future<Either<Failure, City?>> getCurrentCity() async {
     if (_lastCity != null) {
       return Right(_lastCity);
     }
@@ -40,9 +41,16 @@ class LocationManager {
           if (placemarks.isNotEmpty) {
             final currentCity = placemarks.first.locality;
 
-            _lastCity = currentCity;
+            if (currentCity != null) {
+              _lastCity = City(
+                name: currentCity,
+                long: currentPosition.longitude,
+                lat: currentPosition.latitude,
+                isCurrentCity: true,
+              );
 
-            return Right(currentCity);
+              return Right(_lastCity);
+            }
           }
           return const Left(GetLocationFailure());
         } catch (e) {

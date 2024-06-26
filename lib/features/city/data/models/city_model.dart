@@ -7,14 +7,24 @@ import 'package:weather_app/features/city/domain/entities/city.dart';
 /// This class includes methods to serialize and deserialize city data
 /// to and from JSON format, enabling easy storage and retrieval.
 class CityModel extends City {
-  /// Creates a [CityModel] instance with the given [name].
-  CityModel({required super.name, super.isCurrentCity});
+  /// Creates a [CityModel] instance with the given [name], [long] and [lat].
+  CityModel({
+    required super.name,
+    required super.long,
+    required super.lat,
+    super.isCurrentCity,
+  });
 
   /// Creates a [CityModel] instance from a JSON object.
   ///
   /// The [json] parameter is a map containing the city data in JSON format.
   factory CityModel.fromJson(Map<String, dynamic> json) {
-    return CityModel(name: json['name'], isCurrentCity: json['isCurrentCity']);
+    return CityModel(
+      name: json['name'],
+      long: json['long'],
+      lat: json['lat'],
+      isCurrentCity: json['isCurrentCity'],
+    );
   }
 
   /// Converts this [CityModel] instance to a JSON object.
@@ -23,6 +33,8 @@ class CityModel extends City {
   Map<String, dynamic> toJson() {
     return {
       'name': name,
+      'long': long,
+      'lat': lat,
       'isCurrentCity': isCurrentCity,
     };
   }

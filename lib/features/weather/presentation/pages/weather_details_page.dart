@@ -22,10 +22,15 @@ class WeatherDetailsPage extends StatelessWidget {
         child: BlocBuilder<CityBloc, CityState>(
           builder: (context, cityState) {
             if (cityState is CitiesLoaded && cityState.selectedCity != null) {
+              final selectedCity = cityState.selectedCity;
               // Dispatch an event to WeatherInfoBloc to fetch weather info
               context.read<WeatherInfoBloc>().add(
                     GetCityWeatherInfo(
-                      city: City(name: cityState.selectedCity!.name),
+                      city: City(
+                        name: selectedCity!.name,
+                        long: selectedCity.long,
+                        lat: selectedCity.lat,
+                      ),
                     ),
                   );
             }

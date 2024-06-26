@@ -38,8 +38,14 @@ class CityLocalDataSourceImpl implements CityLocalDataSource {
 
   Future<void> _saveCities(List<City> cities) async {
     final jsonList = CityModel.toJsonList(cities
-        .map((city) =>
-            CityModel(name: city.name, isCurrentCity: city.isCurrentCity))
+        .map(
+          (city) => CityModel(
+            name: city.name,
+            long: city.long,
+            lat: city.lat,
+            isCurrentCity: city.isCurrentCity,
+          ),
+        )
         .toList());
 
     await sharedPreferences.setStringList(_citiesKey, jsonList);
@@ -60,7 +66,14 @@ class CityLocalDataSourceImpl implements CityLocalDataSource {
 
     if (!cities.any((c) => c.name.toLowerCase() == normalizedCityName) &&
         city.name.isNotEmpty) {
-      cities.add(CityModel(name: city.name, isCurrentCity: city.isCurrentCity));
+      cities.add(
+        CityModel(
+          name: city.name,
+          long: city.long,
+          lat: city.lat,
+          isCurrentCity: city.isCurrentCity,
+        ),
+      );
 
       await _saveCities(cities);
     }
