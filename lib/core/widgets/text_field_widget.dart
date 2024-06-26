@@ -27,7 +27,7 @@ class TextFieldWidget extends StatelessWidget {
         ),
       ),
       validator: validator,
-      style: textTheme.bodyMedium, // Set the input text color to white
+      style: textTheme.bodyMedium,
     );
   }
 }

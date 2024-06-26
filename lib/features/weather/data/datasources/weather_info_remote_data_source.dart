@@ -34,19 +34,32 @@ class WeatherInfoRemoteDataSourceImpl implements WeatherInfoRemoteDataSource {
 
   @override
   Future<WeatherInfoModel> getWeatherInfo(City city) async {
-    final response = await client.get(
+    final getByNameResponse = await client.get(
       Uri.parse(Urls.currentWeatherByName(city.name)),
       headers: {'Content-Type': 'application/json'},
     );
 
-    if (response.statusCode == HttpStatus.ok) {
+    if (getByNameResponse.statusCode == HttpStatus.ok) {
       return Future.value(
         WeatherInfoModel.fromJson(
-          json.decode(response.body) as Map<String, dynamic>,
+          json.decode(getByNameResponse.body) as Map<String, dynamic>,
         ),
       );
     }
-    if (response.statusCode == HttpStatus.notFound) {
+    if (getByNameResponse.statusCode == HttpStatus.notFound) {
+      final getByCoordinatesResponse = await client.get(
+        Uri.parse(Urls.currentWeatherByCoordinates(city.long, city.lat)),
+        headers: {'Content-Type': 'application/json'},
+      );
+
+      if (getByCoordinatesResponse.statusCode == HttpStatus.ok) {
+        return Future.value(
+          WeatherInfoModel.fromJson(
+            json.decode(getByCoordinatesResponse.body) as Map<String, dynamic>,
+          ),
+        );
+      }
+
       throw ServerException('City not found');
     } else {
       throw ServerException('Server Error');
